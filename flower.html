@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #out {
+            margin: 50px auto;
+            padding: 0 30px;
+            width: 730px;
+            height: 60px;
+            background-color: rgb(243, 247, 210);
+            position: relative;
+            border-radius: 30px;
+        }
+
+        #out>img {
+            width: 60px;
+            position: absolute;
+            top: 5px;
+            left: 50px;
+            opacity: 0.8;
+        }
+
+        #out>ul {
+
+            position: absolute;
+            width: 730px;
+            list-style: none;
+        }
+
+        #out>ul>li {
+            display: inline-block;
+            width: 100px;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            z-index: 9;
+            font-weight: bold;
+            color: rgb(141, 51, 28);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="out">
+        <img src="./img/昙花.png" alt="">
+        <ul>
+            <li>周一</li>
+            <li>周二</li>
+            <li>周三</li>
+            <li>周四</li>
+            <li>周五</li>
+            <li>周六</li>
+            <li>周日</li>
+        </ul>
+    </div>
+</body>
+
+<!-- 引入简单缓动动画 -->
+<script src="../轮播图/js/animate.js"></script>
+
+<script>
+    //获取元素
+    var out = document.querySelector('#out');
+    var pic = out.querySelector('img');
+    var lis = out.getElementsByTagName('li');
+
+    //声明变量current来控制动画的目标位置
+    var current = 0;
+
+    //获取所有的li 给所有的li加触发事件
+    for (let i = 0; i < lis.length; i++) {
+        //  + lis[i].offsetWidth / 2 的意思是元素居中后 要加一个居中的量 即元素的offsetWidth /2
+
+        lis[i].addEventListener('mouseenter', function () {
+            
+            animate(pic,this.offsetLeft + lis[i].offsetWidth / 2);
+        })
+
+        lis[i].addEventListener('mouseleave', function () {
+            //鼠标移出时 目标位置是点击后得到的新的起始位置
+            animate(pic, current);
+        })
+
+
+        lis[i].addEventListener('click', function () {
+            current=this.offsetLeft + lis[i].offsetWidth / 2;
+            animate(pic, this.offsetLeft + lis[i].offsetWidth / 2);
+        })
+    }
+</script>
+
+</html>
